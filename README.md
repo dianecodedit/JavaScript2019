@@ -8,6 +8,6 @@ I'm now back on R1D4 of #100DaysOfCode and i'm enjoying every minute of it. Obje
 
 So onto today's progress - 
 
-<b>R1D4 - Colt Steele - DOM Manipulation.</b>
+<b>R1D4 9th June 2019 - Colt Steele - DOM Manipulation.</b>
 
 Breezed through the basic section (and tested things out for myself before Colt gave any solutions) and began working on the projects in the Advanced Section. My Scorekeeper app is mostly complete, but while I was refactoring my scorekeeping functions I've made something go a little bit haywire and it won't go past 1 for each player. So I'll fix that tomorrow and then move on. 
