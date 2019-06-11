@@ -1,84 +1,73 @@
 var numSquares = 6
-var colours = generateRandomColours(numSquares)
+var colours = []
+var pickedColour
 var squares = document.querySelectorAll(".square")
-var pickedColour = pickColour()
 var colourDisplay = document.getElementById("colourDisplay")
 var messageDisplay = document.querySelector("#message")
 var h1 = document.querySelector("h1")
 var resetButton = document.querySelector("#reset")
-var easyBtn = document.querySelector("#easybtn")
-var hardBtn = document.querySelector("#hardbtn")
+var modeButtons = document.querySelectorAll(".mode")
 
+init()
 
-easyBtn.addEventListener("click", function() {
-  easyBtn.classList.add("selected")
-  hardBtn.classList.remove("selected")
-  numSquares = 3
+function init() {
+  //mode buttons event listeners
+  setupModeButtons()
+  //add event listeners to squares
+  setupSquares()
+
+  reset()
+}
+function setupModeButtons() {
+  for (var i = 0; i < modeButtons.length; i++) {
+    modeButtons[i].addEventListener("click", function(){
+      modeButtons[0].classList.remove("selected")
+      modeButtons[1].classList.remove("selected")
+      this.classList.add("selected")
+      this.textContent === "Easy" ? numSquares = 3 : numSquares = 6
+      reset()
+    })
+  }
+}
+
+function setupSquares() {
+  for (var i = 0; i < squares.length; i++) {
+    squares[i].addEventListener("click", function() {
+      var clickedColour = this.style.backgroundColor
+      if (clickedColour === pickedColour) {
+        messageDisplay.textContent = "Correct!"
+        changeColours(pickedColour)
+        h1.style.backgroundColor = pickedColour
+        resetButton.textContent = "Play Again?"
+      } else {
+        this.style.backgroundColor = "#232323"
+        messageDisplay.textContent = "Try Again"
+      }
+    })
+
+  }
+}
+
+function reset() {
   colours = generateRandomColours(numSquares)
   pickedColour = pickColour()
   colourDisplay.textContent = pickedColour
+  messageDisplay.textContent = ""
+  h1.style.backgroundColor = "steelblue"
+  resetButton.textContent = "New Colours"
   for (var i = 0; i < squares.length; i++) {
     if (colours[i]){
+      squares[i].style.display = "block"
       squares[i].style.backgroundColor = colours[i]
     } else {
       squares[i].style.display = "none"
     }
   }
-  messageDisplay.textContent = ""
-  h1.style.backgroundColor = "steelblue"
-    resetButton.textContent = "New Colours"
-})
-
-hardBtn.addEventListener("click", function() {
-  hardBtn.classList.add("selected")
-  easyBtn.classList.remove("selected")
-  numSquares = 6
-  colours = generateRandomColours(numSquares)
-  pickedColour = pickColour()
-  colourDisplay.textContent = pickedColour
-  for (var i = 0; i < squares.length; i++) {
-      squares[i].style.backgroundColor = colours[i]
-      squares[i].style.display = "block"
-  }
-  messageDisplay.textContent = ""
-  h1.style.backgroundColor = "steelblue"
-    resetButton.textContent = "New Colours"
-})
-
-
-
-resetButton.addEventListener("click", function() {
-  resetButton.textContent = "New Colours"
-  colours = generateRandomColours(numSquares)
-  pickedColour = pickColour()
-  colourDisplay.textContent = pickedColour
-  for (var i = 0; i < squares.length; i++) {
-    squares[i].style.backgroundColor = colours[i]
-  }
-  messageDisplay.textContent = ""
-  h1.style.backgroundColor = "steelblue"
-})
-
-colourDisplay.textContent = pickedColour
-
-for (var i = 0; i < squares.length; i++) {
-  squares[i].style.backgroundColor = colours[i]
-
-  squares[i].addEventListener("click", function() {
-    var clickedColour = this.style.backgroundColor
-    if (clickedColour === pickedColour) {
-      messageDisplay.textContent = "Correct!"
-      changeColours(pickedColour)
-      h1.style.backgroundColor = pickedColour
-      resetButton.textContent = "Play Again?"
-    } else {
-      this.style.backgroundColor = "#232323"
-      messageDisplay.textContent = "Try Again"
-    }
-  })
-
 }
 
+resetButton.addEventListener("click", function() {
+reset()
+})
 
 function changeColours (color) {
   for (var i = 0; i < squares.length; i++) {
