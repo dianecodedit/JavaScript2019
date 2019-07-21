@@ -20,7 +20,10 @@ function chooseFaction() {
 }
 
 function chooseRace() {
-
+    switch (this.classList.contains) {
+        case 'dwarf':
+            console.log("hi")
+    }
 }
 
 function chooseClass() {
